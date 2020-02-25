@@ -9,8 +9,11 @@
     <script src="./js/app.js" defer></script>
 </head>
 
-<body class="bg-blue-500">
-    Example
+<body class="bg-blue-200">
+    <div id="app">
+        <weather-app></weather-app>
+    </div>
+
 </body>
 
 </html>
