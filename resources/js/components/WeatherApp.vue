@@ -58,7 +58,27 @@
 <script>
 export default {
   mounted() {
-    console.log("Component mounted.");
+    console.log("WeatherApp Component mounted.");
+
+    this.fetchData();
+  },
+  data() {
+    return {
+      location: {
+        name: "Santa Fe, Argentina",
+        lat: -31.6497208,
+        lng: -60.7137262
+      }
+    };
+  },
+  methods: {
+    fetchData() {
+      fetch(`/api/weather?lat=${this.location.lat}&lng=${this.location.lng}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+        });
+    }
   }
 };
 </script>

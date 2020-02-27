@@ -1967,7 +1967,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log("Component mounted.");
+    console.log("WeatherApp Component mounted.");
+    this.fetchData();
+  },
+  data: function data() {
+    return {
+      location: {
+        name: "Santa Fe, Argentina",
+        lat: -31.6497208,
+        lng: -60.7137262
+      }
+    };
+  },
+  methods: {
+    fetchData: function fetchData() {
+      fetch("/api/weather?lat=".concat(this.location.lat, "&lng=").concat(this.location.lng)).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log(data);
+      });
+    }
   }
 });
 
