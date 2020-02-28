@@ -1,7 +1,11 @@
 <template>
   <div class="text-white mb-8">
     <div class="places-input text-gray-800">
-      <input type="text" class="w-full" />
+      <input id="address" type="text" class="w-full" />
+      <p>
+        Selected:
+        <strong id="address-value">none</strong>
+      </p>
     </div>
     <div
       class="weather-container font-sans w-128 max-w-lg rounded-lg overflow-hidden bg-gray-900 shadow-lg mt-4"
@@ -57,6 +61,35 @@ export default {
     console.log("WeatherApp Component mounted.");
 
     this.fetchData();
+
+    let placesAutocomplete = places({
+      appId: "plRL1LJ996UF",
+      apiKey: "4e25cd8949e5d1fff4952f8755eabd44",
+      container: document.querySelector("#address")
+    }).configure({
+      type: "city",
+      aroundLatLngViaIP: false
+    });
+
+    let $address = document.querySelector("#address-value");
+
+    placesAutocomplete.on("change", e => {
+      $address.textContent = e.suggestion.value;
+
+      this.location.name = `${e.suggestion.name}, ${e.suggestion.country}`;
+      this.location.lat = e.suggestion.latlng.lat;
+      this.location.lng = e.suggestion.latlng.lng;
+    });
+
+    placesAutocomplete.on("clear", () => ($address.textContent = "none"));
+  },
+  watch: {
+    location: {
+      handler(newValue, oldValue) {
+        this.fetchData();
+      },
+      deep: true
+    }
   },
   data() {
     return {
@@ -81,7 +114,7 @@ export default {
       fetch(`/api/weather?lat=${this.location.lat}&lng=${this.location.lng}`)
         .then(response => response.json())
         .then(data => {
-          console.log(data);
+          // console.log(data);
 
           this.currentTemperature.actual = Math.round(
             data.currently.temperature

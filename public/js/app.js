@@ -1961,10 +1961,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
+    var _this = this;
+
     console.log("WeatherApp Component mounted.");
     this.fetchData();
+    var placesAutocomplete = places({
+      appId: "plRL1LJ996UF",
+      apiKey: "4e25cd8949e5d1fff4952f8755eabd44",
+      container: document.querySelector("#address")
+    }).configure({
+      type: "city",
+      aroundLatLngViaIP: false
+    });
+    var $address = document.querySelector("#address-value");
+    placesAutocomplete.on("change", function (e) {
+      $address.textContent = e.suggestion.value;
+      _this.location.name = "".concat(e.suggestion.name, ", ").concat(e.suggestion.country);
+      _this.location.lat = e.suggestion.latlng.lat;
+      _this.location.lng = e.suggestion.latlng.lng;
+    });
+    placesAutocomplete.on("clear", function () {
+      return $address.textContent = "none";
+    });
+  },
+  watch: {
+    location: {
+      handler: function handler(newValue, oldValue) {
+        this.fetchData();
+      },
+      deep: true
+    }
   },
   data: function data() {
     return {
@@ -1984,7 +2016,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     fetchData: function fetchData() {
-      var _this = this;
+      var _this2 = this;
 
       var skycons = new Skycons({
         color: "white"
@@ -1992,17 +2024,17 @@ __webpack_require__.r(__webpack_exports__);
       fetch("/api/weather?lat=".concat(this.location.lat, "&lng=").concat(this.location.lng)).then(function (response) {
         return response.json();
       }).then(function (data) {
-        console.log(data);
-        _this.currentTemperature.actual = Math.round(data.currently.temperature);
-        _this.currentTemperature.feels = Math.round(data.currently.apparentTemperature);
-        _this.currentTemperature.summary = data.currently.summary;
-        _this.currentTemperature.icon = _this.toKebabCase(data.currently.icon);
-        _this.daily = data.daily.data;
-        skycons.add("iconCurrent", _this.currentTemperature.icon);
+        // console.log(data);
+        _this2.currentTemperature.actual = Math.round(data.currently.temperature);
+        _this2.currentTemperature.feels = Math.round(data.currently.apparentTemperature);
+        _this2.currentTemperature.summary = data.currently.summary;
+        _this2.currentTemperature.icon = _this2.toKebabCase(data.currently.icon);
+        _this2.daily = data.daily.data;
+        skycons.add("iconCurrent", _this2.currentTemperature.icon);
         skycons.play();
 
-        _this.$nextTick(function () {
-          for (var index = 1; index <= _this.daily.length; index++) {
+        _this2.$nextTick(function () {
+          for (var index = 1; index <= _this2.daily.length; index++) {
             skycons.add("icon" + index, document.getElementById("icon" + index).getAttribute("data-icon"));
           }
         });
@@ -37495,7 +37527,15 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "places-input text-gray-800" }, [
-      _c("input", { staticClass: "w-full", attrs: { type: "text" } })
+      _c("input", {
+        staticClass: "w-full",
+        attrs: { id: "address", type: "text" }
+      }),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v("\n      Selected:\n      "),
+        _c("strong", { attrs: { id: "address-value" } }, [_vm._v("none")])
+      ])
     ])
   }
 ]
