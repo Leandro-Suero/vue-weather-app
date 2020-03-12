@@ -1965,6 +1965,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     var _this = this;
@@ -37458,7 +37476,9 @@ var render = function() {
                   _vm._v(_vm._s(_vm.currentTemperature.summary))
                 ]),
                 _vm._v(" "),
-                _c("div", [_vm._v(_vm._s(_vm.location.name))])
+                _c("div", [_vm._v(_vm._s(_vm.location.name))]),
+                _vm._v(" "),
+                _vm._m(1)
               ])
             ]),
             _vm._v(" "),
@@ -37527,16 +37547,61 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "places-input text-gray-800" }, [
-      _c("input", {
-        staticClass: "w-full",
-        attrs: { id: "address", type: "text" }
-      }),
+      _c("div", { staticClass: "flex" }, [
+        _c("input", {
+          staticClass: "w-full",
+          attrs: { id: "address", type: "text" }
+        }),
+        _vm._v(" "),
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "https://community.algolia.com/places/",
+              title: "Search by Algolia",
+              target: "_blank",
+              rel: "noopener noreferrer"
+            }
+          },
+          [
+            _c("img", {
+              staticClass: "w-10 ml-1",
+              attrs: { src: "/img/algolia-blue-mark.png", alt: "photo" }
+            })
+          ]
+        )
+      ]),
       _vm._v(" "),
       _c("p", [
         _vm._v("\n      Selected:\n      "),
         _c("strong", { attrs: { id: "address-value" } }, [_vm._v("none")])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        attrs: {
+          href: "https://darksky.net/poweredby/",
+          title: "Powered by Dark Sky",
+          target: "_blank",
+          rel: "noopener noreferrer"
+        }
+      },
+      [
+        _c("img", {
+          staticClass: "w-32",
+          attrs: {
+            src: "/img/poweredby-oneline-darkbackground.png",
+            alt: "photo"
+          }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true

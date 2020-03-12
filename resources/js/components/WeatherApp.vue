@@ -1,7 +1,17 @@
 <template>
   <div class="text-white mb-8">
     <div class="places-input text-gray-800">
-      <input id="address" type="text" class="w-full" />
+      <div class="flex">
+        <input id="address" type="text" class="w-full" />
+        <a
+          href="https://community.algolia.com/places/"
+          title="Search by Algolia"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="/img/algolia-blue-mark.png" alt="photo" class="w-10 ml-1" />
+        </a>
+      </div>
       <p>
         Selected:
         <strong id="address-value">none</strong>
@@ -19,6 +29,14 @@
           <div class="mx-5">
             <div class="font-semibold">{{currentTemperature.summary}}</div>
             <div>{{location.name}}</div>
+            <a
+              href="https://darksky.net/poweredby/"
+              title="Powered by Dark Sky"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="/img/poweredby-oneline-darkbackground.png" alt="photo" class="w-32" />
+            </a>
           </div>
         </div>
         <div>
